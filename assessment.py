@@ -38,7 +38,11 @@ def exact_change(item_cost, money_paid):
                 if int_tmp_divide > 0 :
                     str_response += f"{int_tmp_divide} {str_key}"
                     flt_tmp_change -= flt_value * int_tmp_divide
+
+                    flt_tmp_change = round(flt_tmp_change, 2)
                     
+                    #print(f"Evaluating {str_key} Tmp Change {flt_tmp_change} Divide {int_tmp_divide}")
+
                     if flt_value >= 1 :
                         str_response += " Dollar Bill"
 
@@ -63,7 +67,7 @@ def exact_change(item_cost, money_paid):
 
         regex_final_pattern = re.compile(r", (\d+ \w*.)$")
         if regex_final_pattern.search(str_response) :
-            print("Matched!")
+            #print("Matched!")
             str_response = re.sub(r", (\d+ \w+.)$", r", and \1", str_response)
 
         return str_response
@@ -73,4 +77,5 @@ def exact_change(item_cost, money_paid):
 #print(exact_change(53.73, 100))
 #print(exact_change(10.0, 3.00))
 #print(exact_change(10, 10))
-print(exact_change(10.75, 20))
+#print(exact_change(10.75, 20))
+print(exact_change(17.53, 30))
