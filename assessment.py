@@ -38,6 +38,9 @@ def exact_change(item_cost, money_paid):
                     str_response += f"{int_tmp_divide} {str_key}"
                     flt_tmp_change -= flt_value * int_tmp_divide
                     
+                    if flt_value >= 1 :
+                        str_response += " Dollar Bill"
+
                     # Check if we have multiple coins
                     #   and check if we have a penny
                     if int_tmp_divide > 1 and flt_value > .01 :
@@ -45,7 +48,7 @@ def exact_change(item_cost, money_paid):
                     elif int_tmp_divide > 1 and flt_value == .01:
                         # We have pennies, pluralize the response
                         str_response += "ies"
-                    else :
+                    elif flt_value == .01 :
                         # We have one penny
                         str_response += "y"
 
@@ -64,4 +67,4 @@ def exact_change(item_cost, money_paid):
 #print(exact_change(53.73, 100))
 #print(exact_change(10.0, 3.00))
 #print(exact_change(10, 10))
-print(exact_change(50.73, 51.24))
+print(exact_change(10.75, 20))
