@@ -13,7 +13,7 @@ def exact_change(item_cost, money_paid):
         "Quarter" : 0.25,
         "Dime" : 0.1,
         "Nickle" : 0.05,
-        "Penny" : 0.01,
+        "Penn" : 0.01,      # Penny
     }
 
     if item_cost <= money_paid :
@@ -35,8 +35,16 @@ def exact_change(item_cost, money_paid):
                 int_tmp_divide = int(flt_tmp_change // flt_value)
                 # Check if this coin is divisible
                 if int_tmp_divide > 0 :
-                    str_response += f"{int_tmp_divide} {str_key} "
+                    str_response += f"{int_tmp_divide} {str_key}"
                     flt_tmp_change -= flt_value * int_tmp_divide
+                    
+                    # Check if we have multiple coins
+                    #   and check if we have a penny
+                    if int_tmp_divide > 1 and flt_value > .01 :
+                        str_response += "s "
+                    elif int_tmp_divide > 1 and flt_value == .01:
+                        str_response += "ies"
+
 
         else :
             str_response += "."
