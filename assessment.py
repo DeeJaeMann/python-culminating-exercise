@@ -71,7 +71,7 @@ def exact_change(item_cost, money_paid):
             str_response = re.sub(r", (\d+ \w+.)$", r", and \1", str_response)
 
         # Check for single dollar bill
-        regex_single_dollar_pattern = re.compile(f": (\d+ \w+ \w+ \w+), and (\d+ \w+.)$")
+        regex_single_dollar_pattern = re.compile(r": (\d+ \w+ \w+ \w+), and (\d+ \w+.)$")
         if regex_single_dollar_pattern.search(str_response) :
             print("Matched!")
             str_response = re.sub(regex_single_dollar_pattern, r": \1 and \2", str_response)
