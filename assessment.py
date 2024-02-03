@@ -44,6 +44,9 @@ def exact_change(item_cost, money_paid):
                         str_response += "s "
                     elif int_tmp_divide > 1 and flt_value == .01:
                         str_response += "ies"
+                    else :
+                        # We have one penny
+                        str_response += "y"
 
 
         else :
@@ -56,4 +59,4 @@ def exact_change(item_cost, money_paid):
 #print(exact_change(53.73, 100))
 #print(exact_change(10.0, 3.00))
 #print(exact_change(10, 10))
-print(exact_change(50.73, 51.25))
+print(exact_change(50.73, 51.24))
