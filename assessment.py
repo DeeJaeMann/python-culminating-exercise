@@ -10,7 +10,7 @@ def exact_change(item_cost, money_paid):
         "Five" : 5,
         "Two" : 2,
         "One" : 1,
-        "Quarter" : 0.5,
+        "Quarter" : 0.25,
         "Dime" : 0.1,
         "Nickle" : 0.05,
         "Penny" : 0.01,
@@ -29,11 +29,15 @@ def exact_change(item_cost, money_paid):
             # Add the colon and space
             str_response += ": "
 
+            # Iterate through our currency dict and determine our change
             for str_key, flt_value in dct_currency.items() :
+                # Type Cast to int so that we're not dealing with decimals
                 int_tmp_divide = int(flt_tmp_change // flt_value)
+                # Check if this coin is divisible
                 if int_tmp_divide > 0 :
-                    str_response += f"{int_tmp_divide} {str_key}, "
+                    str_response += f"{int_tmp_divide} {str_key} "
                     flt_tmp_change -= flt_value * int_tmp_divide
+
         else :
             str_response += "."
 
@@ -41,6 +45,7 @@ def exact_change(item_cost, money_paid):
     else :
         return "You can't afford this item." 
 
-print(exact_change(53.73, 100))
+#print(exact_change(53.73, 100))
 #print(exact_change(10.0, 3.00))
 #print(exact_change(10, 10))
+print(exact_change(50.73, 51.25))
