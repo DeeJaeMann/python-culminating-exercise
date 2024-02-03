@@ -41,16 +41,21 @@ def exact_change(item_cost, money_paid):
                     # Check if we have multiple coins
                     #   and check if we have a penny
                     if int_tmp_divide > 1 and flt_value > .01 :
-                        str_response += "s "
+                        str_response += "s"
                     elif int_tmp_divide > 1 and flt_value == .01:
+                        # We have pennies, pluralize the response
                         str_response += "ies"
                     else :
                         # We have one penny
                         str_response += "y"
 
+                    # If we have more change to calculate add a comma
+                    if flt_tmp_change > 0.01 :
+                        str_response += ", "
 
-        else :
-            str_response += "."
+
+        #else :
+        str_response += "."
 
         return str_response
     else :
