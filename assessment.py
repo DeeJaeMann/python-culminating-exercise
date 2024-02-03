@@ -1,4 +1,5 @@
 #!/usr/bin/env python3.12
+import re
 def exact_change(item_cost, money_paid):
 
 
@@ -59,6 +60,11 @@ def exact_change(item_cost, money_paid):
 
         #else :
         str_response += "."
+
+        regex_final_pattern = re.compile(r", (\d+ \w*.)$")
+        if regex_final_pattern.search(str_response) :
+            print("Matched!")
+            str_response = re.sub(r", (\d+ \w+.)$", r", and \1", str_response)
 
         return str_response
     else :
