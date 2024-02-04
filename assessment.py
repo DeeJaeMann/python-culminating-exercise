@@ -1,5 +1,9 @@
 #!/usr/bin/env python3.12
 import re
+
+def parse_output(str_raw) :
+    pass
+
 def exact_change(item_cost, money_paid):
 
 
@@ -36,13 +40,14 @@ def exact_change(item_cost, money_paid):
                 int_tmp_divide = int(flt_tmp_change // flt_value)
                 # Check if this coin is divisible
                 if int_tmp_divide > 0 :
+                    # This unit is divisible
+
+                    # Add the divisible amount (count of units) and unit name
                     str_response += f"{int_tmp_divide} {str_key}"
                     flt_tmp_change -= flt_value * int_tmp_divide
 
+                    # Ensure we round up to two decimal places
                     flt_tmp_change = round(flt_tmp_change, 2)
-                    
-                    # print(f"**1**Evaluating {str_key} Tmp Change {flt_tmp_change} Divide {int_tmp_divide}")
-                    # print(f"**2**{str_response}")
 
                     if flt_value >= 1 :
                         str_response += " Dollar Bill"
