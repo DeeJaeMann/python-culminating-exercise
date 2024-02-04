@@ -1,6 +1,8 @@
 #!/usr/bin/env python3.12
 import re
 
+# Begin helper functions
+
 def check_dollars(flt_value) :
     # If our value is greater than 1 then we have append 'Dollar Bill'
     if flt_value >= 1 :
@@ -40,12 +42,15 @@ def parse_final_comma(str_raw) :
 
 def parse_single_dollar(str_raw) :
         # Check for single dollar bill followed by a coin
-        regex_single_dollar_pattern = re.compile(r": (\d+ \w+ \w+ \w+), and (\d+ \w+.)$")
+        # The non-capturing sub group allows for the additional word (found in Hundred...)
+        regex_single_dollar_pattern = re.compile(r": (\d+ \w+ \w+ \w+(?:\s\w+)?), and (\d+ \w+.)$")
         if regex_single_dollar_pattern.search(str_raw) :
             # If we have a sucessful match we will replace the ', and' with 'and'
             return re.sub(regex_single_dollar_pattern, r": \1 and \2", str_raw)
 
         return str_raw
+
+# End Helper Functions
 
 def exact_change(item_cost, money_paid):
 
@@ -73,7 +78,7 @@ def exact_change(item_cost, money_paid):
             # Set the temp change to total.  This var is used to calculate the exact change
             flt_tmp_change = flt_total
 
-            # Add the colon and space
+            # We add a colon and space because we have more output to add
             str_response += ": "
 
             # Iterate through our currency dict and determine our change
@@ -91,6 +96,7 @@ def exact_change(item_cost, money_paid):
                     # Ensure we round up to two decimal places
                     flt_tmp_change = round(flt_tmp_change, 2)
 
+                    # We'll verify if we need to add the rest of the string for Dollar Bills
                     str_response += f"{check_dollars(flt_value)}"
 
                     if(flt_value == .01) :
@@ -100,6 +106,8 @@ def exact_change(item_cost, money_paid):
                         # We have multiple others, make it plural
                         str_response += "s"
 
+        # The following is for 'pretty formatting' the response string
+
         str_response += "."
 
         str_response = parse_spaces(str_response)
@@ -108,14 +116,13 @@ def exact_change(item_cost, money_paid):
 
         str_response = parse_single_dollar(str_response)
 
-
         return str_response
     else :
         return "You can't afford this item." 
 
 #print(exact_change(53.73, 100))
 #print(exact_change(10.0, 3.00))
-print(exact_change(0.75, 5))
-print(exact_change(1.34, 5))
-print(exact_change(1.34, 1.36))
+# print(exact_change(0.75, 101))
+# print(exact_change(1.34, 5))
+# print(exact_change(1.34, 1.36))
 #print(exact_change(9.99, 20))
