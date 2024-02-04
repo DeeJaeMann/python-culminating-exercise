@@ -8,6 +8,14 @@ def check_dollars(flt_value) :
         
     return ""
 
+def check_penny(int_divisor) :
+    # Check if we have multiple pennies
+    if int_divisor > 1:
+        return "ies"
+    
+    # We have one penny
+    return "y"
+
 def parse_output() :
     pass
 
@@ -57,20 +65,10 @@ def exact_change(item_cost, money_paid):
                     # Ensure we round up to two decimal places
                     flt_tmp_change = round(flt_tmp_change, 2)
 
-                    # if flt_value >= 1 :
-                    #     str_response += " Dollar Bill"
                     str_response += f"{check_dollars(flt_value)}"
 
-                    # Check if we have multiple coins
-                    #   and check if we have a penny
-                    if int_tmp_divide > 1 and flt_value > .01 :
-                        str_response += "s"
-                    elif int_tmp_divide > 1 and flt_value == .01:
-                        # We have pennies, pluralize the response
-                        str_response += "ies"
-                    elif flt_value == .01 :
-                        # We have one penny
-                        str_response += "y"
+                    if(flt_value == .01) :
+                        str_response += f"{check_penny(int_tmp_divide)}"
 
                     # If we have more change to calculate add a comma
                     if flt_tmp_change > 0.01 :
@@ -99,5 +97,5 @@ def exact_change(item_cost, money_paid):
 #print(exact_change(10.0, 3.00))
 #print(exact_change(0.75, 2))
 print(exact_change(1.34, 5))
-print(exact_change(1.34, 1.35))
+print(exact_change(1.34, 1.36))
 #print(exact_change(9.99, 20))
