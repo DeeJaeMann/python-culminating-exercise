@@ -30,13 +30,22 @@ def parse_spaces(str_raw) :
     return str_raw
 
 def parse_final_comma(str_raw) :
+    # This pattern searches for the last occurance of a comma and number
     regex_final_comma_pattern = re.compile(r", (\d+ \w+.)$")
     if regex_final_comma_pattern.search(str_raw) :
-
-        return re.sub(r", (\d+ \w+.)$", r", and \1", str_raw)
+        # If we have a sucessful match we will insert an and
+        return re.sub(regex_final_comma_pattern, r", and \1", str_raw)
     
     return str_raw
 
+def parse_single_dollar(str_raw) :
+        # Check for single dollar bill followed by a coin
+        regex_single_dollar_pattern = re.compile(r": (\d+ \w+ \w+ \w+), and (\d+ \w+.)$")
+        if regex_single_dollar_pattern.search(str_raw) :
+            # If we have a sucessful match we will replace the ', and' with 'and'
+            return re.sub(regex_single_dollar_pattern, r": \1 and \2", str_raw)
+
+        return str_raw
 
 def exact_change(item_cost, money_paid):
 
@@ -97,12 +106,8 @@ def exact_change(item_cost, money_paid):
 
         str_response = parse_final_comma(str_response)
 
-    
-        # Check for single dollar bill
-        regex_single_dollar_pattern = re.compile(r": (\d+ \w+ \w+ \w+), and (\d+ \w+.)$")
-        if regex_single_dollar_pattern.search(str_response) :
-            #print("Matched!")
-            str_response = re.sub(regex_single_dollar_pattern, r": \1 and \2", str_response)
+        str_response = parse_single_dollar(str_response)
+
 
         return str_response
     else :
