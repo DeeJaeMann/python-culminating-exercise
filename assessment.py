@@ -29,6 +29,13 @@ def parse_spaces(str_raw) :
 
     return str_raw
 
+def parse_final_comma(str_raw) :
+    regex_final_comma_pattern = re.compile(r", (\d+ \w+.)$")
+    if regex_final_comma_pattern.search(str_raw) :
+
+        return re.sub(r", (\d+ \w+.)$", r", and \1", str_raw)
+    
+    return str_raw
 
 
 def exact_change(item_cost, money_paid):
@@ -88,11 +95,9 @@ def exact_change(item_cost, money_paid):
 
         str_response = parse_spaces(str_response)
 
-        regex_final_comma_pattern = re.compile(r", (\d+ \w+.)$")
-        if regex_final_comma_pattern.search(str_response) :
-            #print("Matched!")
-            str_response = re.sub(r", (\d+ \w+.)$", r", and \1", str_response)
+        str_response = parse_final_comma(str_response)
 
+    
         # Check for single dollar bill
         regex_single_dollar_pattern = re.compile(r": (\d+ \w+ \w+ \w+), and (\d+ \w+.)$")
         if regex_single_dollar_pattern.search(str_response) :
