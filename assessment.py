@@ -16,12 +16,22 @@ def check_penny(int_divisor) :
     # We have one penny
     return "y"
 
-def parse_output() :
-    pass
+def parse_spaces(str_raw) :
+    # This pattern uses positive look arounds to locate a letter with
+    # a number directly after.
+    # Lookarounds do not consume the match so this enables us to insert
+    # using RegEx
+    regex_raw_line = re.compile(r'(?<=[lser])(?=\d)', re.I)
+
+    if regex_raw_line.search(str_raw) :
+        # we found a match so we'll insert a comma and a space.
+        return re.sub(regex_raw_line, ", ", str_raw)
+
+    return str_raw
+
 
 
 def exact_change(item_cost, money_paid):
-
 
     dct_currency = {
         "One Hundred" : 100,
@@ -68,15 +78,15 @@ def exact_change(item_cost, money_paid):
                     str_response += f"{check_dollars(flt_value)}"
 
                     if(flt_value == .01) :
+                        # We have pennies, append whether we're plural or singular
                         str_response += f"{check_penny(int_tmp_divide)}"
+                    elif(int_tmp_divide > 1) :
+                        # We have multiple others, make it plural
+                        str_response += "s"
 
-                    # If we have more change to calculate add a comma
-                    if flt_tmp_change > 0.01 :
-                        str_response += ", "
-
-
-        #else :
         str_response += "."
+
+        str_response = parse_spaces(str_response)
 
         regex_final_comma_pattern = re.compile(r", (\d+ \w+.)$")
         if regex_final_comma_pattern.search(str_response) :
@@ -95,7 +105,7 @@ def exact_change(item_cost, money_paid):
 
 #print(exact_change(53.73, 100))
 #print(exact_change(10.0, 3.00))
-#print(exact_change(0.75, 2))
+print(exact_change(0.75, 5))
 print(exact_change(1.34, 5))
 print(exact_change(1.34, 1.36))
 #print(exact_change(9.99, 20))
