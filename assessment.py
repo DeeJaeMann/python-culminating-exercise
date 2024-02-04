@@ -1,8 +1,16 @@
 #!/usr/bin/env python3.12
 import re
 
-def parse_output(str_raw) :
+def check_dollars(flt_value) :
+    # If our value is greater than 1 then we have append 'Dollar Bill'
+    if flt_value >= 1 :
+        return " Dollar Bill"
+        
+    return ""
+
+def parse_output() :
     pass
+
 
 def exact_change(item_cost, money_paid):
 
@@ -49,8 +57,9 @@ def exact_change(item_cost, money_paid):
                     # Ensure we round up to two decimal places
                     flt_tmp_change = round(flt_tmp_change, 2)
 
-                    if flt_value >= 1 :
-                        str_response += " Dollar Bill"
+                    # if flt_value >= 1 :
+                    #     str_response += " Dollar Bill"
+                    str_response += f"{check_dollars(flt_value)}"
 
                     # Check if we have multiple coins
                     #   and check if we have a penny
@@ -90,4 +99,5 @@ def exact_change(item_cost, money_paid):
 #print(exact_change(10.0, 3.00))
 #print(exact_change(0.75, 2))
 print(exact_change(1.34, 5))
+print(exact_change(1.34, 1.35))
 #print(exact_change(9.99, 20))
